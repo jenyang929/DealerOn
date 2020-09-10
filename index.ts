@@ -100,7 +100,7 @@ function convertToDollars(num: number): string {
 }
 
 function roundToNearest5(num: number): number {
-  return Math.round(num / 5) * 5;
+  return Math.ceil(num / 5) * 5;
 }
 
 function shoppingBasketReceipts(input: IItemList[]) {
@@ -135,7 +135,7 @@ function shoppingBasketReceipts(input: IItemList[]) {
       totalTaxCost += roundedTax;
       items[obj.item].cost = roundedTax + obj.cost;
     }
-    totalCost += obj.cost;
+    totalCost += items[obj.item].cost;
   }
 
   //creating receipt output
@@ -155,4 +155,4 @@ function shoppingBasketReceipts(input: IItemList[]) {
   return receipt;
 }
 
-shoppingBasketReceipts(basket3);
+shoppingBasketReceipts(basket1);
