@@ -2,14 +2,14 @@ import { expect } from "chai";
 import "mocha";
 import {
   shoppingBasketReceipts,
-  IItemList,
+  IPurchasedItem,
   roundToNearest5,
   convertToDollars,
 } from "./main";
 
 describe("shoppingBasketReceipts function", () => {
   it("should return basket one items with prices, amount, sale tax total, and total cost", () => {
-    let basketOne: IItemList[] = [
+    let basketOne: IPurchasedItem[] = [
       {
         item: "Book",
         amount: 1,
@@ -50,7 +50,7 @@ describe("shoppingBasketReceipts function", () => {
   });
 
   it("should return basket two items with prices, amount, sale tax total, and total cost", () => {
-    let basketTwo: IItemList[] = [
+    let basketTwo: IPurchasedItem[] = [
       {
         item: "Imported box of chocolates",
         amount: 1,
@@ -76,7 +76,7 @@ describe("shoppingBasketReceipts function", () => {
   });
 
   it("should return basket three items with prices, amount, sale tax total, and total cost", () => {
-    let basketThree: IItemList[] = [
+    let basketThree: IPurchasedItem[] = [
       {
         item: "Imported bottle of perfume",
         amount: 1,

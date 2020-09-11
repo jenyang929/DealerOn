@@ -1,11 +1,15 @@
 // SALES TAX PROBLEM 2
 
-export interface IItemList {
+export interface IPurchasedItem {
   item: string;
   amount: number;
   cost: number;
   imported: boolean;
   taxException: boolean;
+}
+
+export interface IItem {
+  [key: string]: IPurchasedItem;
 }
 
 export interface IReceipt {
@@ -21,41 +25,44 @@ export function roundToNearest5(num: number): number {
 }
 
 // function that converts input into the receipt output desired
-export function shoppingBasketReceipts(input: IItemList[]): IReceipt {
+export function shoppingBasketReceipts(input: IPurchasedItem[]): IReceipt {
   let totalCost = 0;
   let totalTaxCost = 0;
-  let items: any = {};
+  const items: IItem = {};
 
   for (let i = 0; i < input.length; i++) {
-    let obj = input[i];
-
+    const obj = input[i];
+    const itemName = obj.item;
     // getting total count per item
-    if (!items[obj.item]) {
-      const item = { ...obj };
-      items[obj.item] = obj;
+    if (!items[itemName]) {
+      items[itemName] = obj;
     } else {
-      items[obj.item].amount++;
+      items[itemName].amount++;
     }
 
     //applying sales or import tax per item
     let roundedTax = 0;
-    if (obj.imported === false && obj.taxException === false) {
+
+    if (!obj.imported && !obj.taxException) {
       roundedTax = roundToNearest5(obj.cost * 0.1);
-    } else if (obj.imported === true && obj.taxException === true) {
+    } else if (obj.imported && obj.taxException) {
       roundedTax = roundToNearest5(obj.cost * 0.05);
-    } else if (obj.imported === true && obj.taxException === false) {
+    } else if (obj.imported && !obj.taxException) {
       roundedTax =
         roundToNearest5(obj.cost * 0.05) + roundToNearest5(obj.cost * 0.1);
     }
 
-    if (!(obj.imported === false && obj.taxException === true)) {
+    // if there is some form of tax - salea or imported
+    if (obj.imported || !obj.taxException) {
       totalTaxCost += roundedTax;
-      items[obj.item].cost = roundedTax + obj.cost;
+      // adjust the cost of the item to include tax
+      items[itemName].cost = roundedTax + obj.cost;
     }
-    totalCost += items[obj.item].cost;
+    //add new cost to totalCost of all products
+    totalCost += items[itemName].cost;
   }
 
-  //creating the desired receipt output
+  //creating the desired receipt output of items
   let receipt: IReceipt = {};
   for (let item in items) {
     let supply = items[item];
