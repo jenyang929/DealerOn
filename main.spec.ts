@@ -1,6 +1,11 @@
 import { expect } from "chai";
 import "mocha";
-import { shoppingBasketReceipts, IItemList } from "./main";
+import {
+  shoppingBasketReceipts,
+  IItemList,
+  roundToNearest5,
+  convertToDollars,
+} from "./main";
 
 describe("shoppingBasketReceipts function", () => {
   it("should return basket one items with prices, amount, sale tax total, and total cost", () => {
@@ -117,5 +122,31 @@ describe("shoppingBasketReceipts function", () => {
       "Sales Taxes": "7.30",
       Total: "86.53",
     });
+  });
+});
+
+describe("roundToNearest5 function", () => {
+  it("should take in a number and return a whole number", () => {
+    const result = roundToNearest5(104.5);
+    const result2 = roundToNearest5(231.6);
+    const result3 = roundToNearest5(358.2);
+    const result4 = roundToNearest5(237.5);
+    expect(result).to.equal(105);
+    expect(result2).to.equal(235);
+    expect(result3).to.equal(360);
+    expect(result4).to.equal(240);
+  });
+});
+
+describe("convertToDollars function", () => {
+  it("should take in a number and return a whole number", () => {
+    const result = convertToDollars(4750);
+    const result2 = convertToDollars(85);
+    const result3 = convertToDollars(2799);
+    const result4 = convertToDollars(1699);
+    expect(result).to.equal("47.50");
+    expect(result2).to.equal("0.85");
+    expect(result3).to.equal("27.99");
+    expect(result4).to.equal("16.99");
   });
 });

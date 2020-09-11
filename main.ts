@@ -11,6 +11,10 @@ export interface IItemList {
   taxException: boolean;
 }
 
+export interface IReceipt {
+  [key: string]: string;
+}
+
 export function convertToDollars(num: number): string {
   return (num / 100).toFixed(2);
 }
@@ -19,7 +23,7 @@ export function roundToNearest5(num: number): number {
   return Math.ceil(num / 5) * 5;
 }
 
-export function shoppingBasketReceipts(input: IItemList[]) {
+export function shoppingBasketReceipts(input: IItemList[]): IReceipt {
   let totalCost = 0;
   let totalTaxCost = 0;
   let taxedAmount;
@@ -55,7 +59,7 @@ export function shoppingBasketReceipts(input: IItemList[]) {
   }
 
   //creating receipt output
-  let receipt: any = {};
+  let receipt: IReceipt = {};
   for (let item in items) {
     let supply = items[item];
     if (supply.amount !== 1) {
