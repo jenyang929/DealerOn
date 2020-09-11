@@ -1,6 +1,6 @@
 # DealerOn Coding Challenge
 
-Completed problem #2: Sales Tax with Typescript
+Completed problem #2: Sales Tax on main.ts
 
 ## Explanation 
 Based on the given inputs, I created an interface that described the types for the item (string), amount (number), cost (number), was it imported (boolean) and is there a taxException (boolean). The total pricing of each item was dependent on whether or not they were imported (+5% tax) or not exempted from sales tax (+10%)
