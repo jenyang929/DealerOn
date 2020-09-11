@@ -1,7 +1,4 @@
 // SALES TAX PROBLEM 2
-// basic sale tax applies to ALL items at 10% - EXCEPT books, food, and medical products
-// import duty tax on all imported items at 5% of shelf price
-// write function that takes input for shopping baskets and return receipts
 
 export interface IItemList {
   item: string;
@@ -23,10 +20,10 @@ export function roundToNearest5(num: number): number {
   return Math.ceil(num / 5) * 5;
 }
 
+// function that converts input into the receipt output desired
 export function shoppingBasketReceipts(input: IItemList[]): IReceipt {
   let totalCost = 0;
   let totalTaxCost = 0;
-  let taxedAmount;
   let items: any = {};
 
   for (let i = 0; i < input.length; i++) {
@@ -40,7 +37,7 @@ export function shoppingBasketReceipts(input: IItemList[]): IReceipt {
       items[obj.item].amount++;
     }
 
-    //applying sales or import tax
+    //applying sales or import tax per item
     let roundedTax = 0;
     if (obj.imported === false && obj.taxException === false) {
       roundedTax = roundToNearest5(obj.cost * 0.1);
@@ -58,7 +55,7 @@ export function shoppingBasketReceipts(input: IItemList[]): IReceipt {
     totalCost += items[obj.item].cost;
   }
 
-  //creating receipt output
+  //creating the desired receipt output
   let receipt: IReceipt = {};
   for (let item in items) {
     let supply = items[item];
@@ -72,5 +69,6 @@ export function shoppingBasketReceipts(input: IItemList[]): IReceipt {
   }
   receipt["Sales Taxes"] = convertToDollars(totalTaxCost);
   receipt["Total"] = convertToDollars(totalCost);
+
   return receipt;
 }
