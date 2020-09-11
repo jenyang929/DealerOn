@@ -52,7 +52,7 @@ export function shoppingBasketReceipts(input: IPurchasedItem[]): IReceipt {
         roundToNearest5(obj.cost * 0.05) + roundToNearest5(obj.cost * 0.1);
     }
 
-    // if there is some form of tax - salea or imported
+    // if there is some form of tax - sales or imported
     if (obj.imported || !obj.taxException) {
       totalTaxCost += roundedTax;
       // adjust the cost of the item to include tax
