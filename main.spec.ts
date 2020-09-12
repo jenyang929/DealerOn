@@ -139,7 +139,7 @@ describe("roundToNearest5 function", () => {
 });
 
 describe("convertToDollars function", () => {
-  it("should take in a number and return a whole number", () => {
+  it("should take in a number and return number in dollars with 2 fixed decimal points", () => {
     const result = convertToDollars(4750);
     const result2 = convertToDollars(85);
     const result3 = convertToDollars(2799);
